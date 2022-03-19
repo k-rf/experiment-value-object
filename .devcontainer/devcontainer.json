@@ -1,6 +1,6 @@
 {
-  "name": "template_typescript",
-  "remoteUser": "template_typescript",
+  "name": "experiment_value_object",
+  "remoteUser": "experiment_value_object",
   "dockerComposeFile": "../docker-compose.dev.yaml",
   "service": "application",
   "postCreateCommand": "yarn install",
