@@ -103,4 +103,24 @@ describe('DomainPrimitive', () => {
       expect(valueA.equals(valueB)).toStrictEqual(expected);
     });
   });
+
+  describe('valueOf', () => {
+    const valueA = new TestValueObject('valueA');
+    const valueB = new TestValueObject('valueB');
+    const testValue = new CompositeTestValueObject({
+      valueA,
+      valueB,
+    });
+
+    it('キーを指定せずに値を取得する', () => {
+      expect(testValue.valueOf()).toStrictEqual({ valueA, valueB });
+    });
+
+    it.each<[keyof Props, Props[keyof Props]]>([
+      ['valueA', valueA],
+      ['valueB', valueB],
+    ])('キーを指定して値を取得する', (a, expected) => {
+      expect(testValue.valueOf(a)).toStrictEqual(expected);
+    });
+  });
 });
