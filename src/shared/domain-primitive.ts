@@ -5,6 +5,7 @@ export type Primitive =
   | string
   | Date
   | DomainPrimitive<Primitive>
+  | Array<DomainPrimitive<Primitive>>
   | Record<string, DomainPrimitive<Primitive>>;
 
 type Key<T> = T extends Record<string, DomainPrimitive<Primitive>>

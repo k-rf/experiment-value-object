@@ -29,6 +29,16 @@ describe('DomainPrimitive', () => {
       ['abc', 'xyz', false],
       [new Date(0), new Date(0), true],
       [new Date(0), new Date(1), false],
+      [
+        new TestValueObject([new TestValueObject(0), new TestValueObject(1)]),
+        new TestValueObject([new TestValueObject(0), new TestValueObject(1)]),
+        true,
+      ],
+      [
+        new TestValueObject([new TestValueObject(0), new TestValueObject(1)]),
+        new TestValueObject([new TestValueObject(1), new TestValueObject(0)]),
+        false,
+      ],
       [new TestValueObject(0), new TestValueObject(0), true],
       [new TestValueObject(0), new TestValueObject(1), false],
       [new TestValueObject('abc'), new TestValueObject('abc'), true],
