@@ -28,12 +28,7 @@
         "plugin:import/warnings",
         "plugin:import/typescript",
         "plugin:@typescript-eslint/recommended",
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
-        "plugin:jsx-a11y/recommended",
-        "plugin:prettier/recommended",
-        "plugin:testing-library/react",
-        "plugin:jest-dom/recommended"
+        "plugin:prettier/recommended"
       ],
       "rules": {
         "no-restricted-imports": [

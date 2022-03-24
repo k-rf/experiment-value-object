@@ -1,14 +1,22 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { objectPropertySort } from '~/util/object-property-sort';
 
-type Key<T> = T extends Record<string, DomainPrimitive<any>> ? keyof T : never;
+export type Primitive =
+  | number
+  | string
+  | Date
+  | DomainPrimitive<Primitive>
+  | Record<string, DomainPrimitive<Primitive>>;
+
+type Key<T> = T extends Record<string, DomainPrimitive<Primitive>>
+  ? keyof T
+  : never;
+
+type Value<T> = T extends Record<string, DomainPrimitive<Primitive>>
+  ? never
+  : T;
 
 export abstract class DomainPrimitive<
-  T extends
-    | number
-    | string
-    | Date
-    | DomainPrimitive<any>
-    | Record<string, DomainPrimitive<any>>,
+  T extends Primitive,
   U extends string = string
 > {
   private domainPrimitiveBrand!: U;
@@ -19,7 +27,7 @@ export abstract class DomainPrimitive<
 
   protected abstract validate(value: T): T;
 
-  valueOf(): T;
+  valueOf(): Value<T>;
   valueOf<K extends Key<T>>(key: K): T[K];
   valueOf<K extends Key<T>>(key?: K) {
     if (key) {
@@ -30,6 +38,9 @@ export abstract class DomainPrimitive<
   }
 
   equals(that: DomainPrimitive<T, U>): boolean {
-    return JSON.stringify(this) === JSON.stringify(that);
+    return (
+      JSON.stringify(objectPropertySort(this)) ===
+      JSON.stringify(objectPropertySort(that))
+    );
   }
 }
